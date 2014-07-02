@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function show()
+        {
+            var xmlhttp;
+
+            if(window.XMLHttpRequest)
+            {
+                xmlhttp = new XMLHttpRequest();
+            }
+            else
+            {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            xmlhttp.onreadystatechange = function()
+            {
+                if(xmlhttp.readyState == 4  && xmlhttp.status==200)
+                {
+                    xmlDoc = xmlhttp.responseXML;
+
+                    var txt = "";
+
+                    var x = xmlDoc.getElementsByTagName("ARTIST");
+                    for( var i=0; i < x.length; i++)
+                    {
+                        txt = txt + x[i].childNodes[0].nodeValue + "<br>";
+                    }
+                    document.getElementById("myDiv").innerHTML = txt;
+
+                }
+            }
+            xmlhttp.open("GET", "cd_catalog.xml", true);
+            xmlhttp.send();
+        }
+
+    </script>
+
+</head>
+<body>
+    <h2>   My Cd Collections     </h2><br>
+    <div id="myDiv">
+
+    </div>
+<button type="button" onclick="show()">Click</button>
+</body>
+</html>
